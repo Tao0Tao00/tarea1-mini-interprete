@@ -48,7 +48,19 @@
 
 | Prueba | Componente | Comportamiento que verifica | ¿Cuántos operadores usa? | ¿Normal, frontera o inválida? |
 |---|---|---|---|---|
-| | | | | |
+| test_suma()| evaluator | Verifica que 3 + 4 de 7 | 1 |Normal |
+| test_resta()| evaluator| Verifica que 10 - 3 de 7 | 1|Normal |
+| test_multiplicacion()| evaluator| Verifica que 6 * 7 de 42 | 1|Normal|
+| test_division()| evaluator| Verifica que 10 / 2 de 5 | 1| Normal|
+| test_precedencia_sin_parentesis()| evaluator| Verifica la jeraquia de operacion de 3 + 4 * 2 que de 11| 2| Normal |
+| test_precedencia_con_parentesis()| evaluator|Verifica la jeraquia de operacion de(3 + 4) * 2 por parentesis que de 14 | 2| Normal |
+| test_tokeniza_un_numero_solo| lexer| Checa que sea exactamente el numero 42 en la posicion 0 |0 |Normal |
+| test_tokeniza_una_suma()| lexer| Checa la posición de cada numero o operador este en el indicado de 3+4 |1| Normal|
+| test_los_espacios_no_producen_tokens()| lexer| Checa que los espacios no sean considerados como tokens de 3 + 4 |1|Frontera|
+| test_tokeniza_parentesis()| lexer| Pasa a tokens los parentesis |0| Normal|
+| test_construye_el_arbol_de_una_suma()| parser| Forma el arbol de operación de la suma de 3+4 |1| Normal|
+| test_la_multiplicacion_se_agrupa_antes_que_la_suma()| parser| Indica que la multiplicación en la operación 3 + 4 * 2 se agrupa para operar |2| Normal|
+| test_los_parentesis_cambian_la_agrupacion()| parser| (3 + 4) * 2  debe agruparse al reves |2| Normal|
 
 > Llenen la tabla **completa**, con las 13. Es tediosa a propósito: la única
 > forma de saber qué no está cubierto es caracterizar sistemáticamente lo que

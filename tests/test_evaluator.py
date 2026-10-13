@@ -1,6 +1,7 @@
 """Pruebas del evaluador: del AST a un numero."""
-
+import pytest
 from mini_interprete.cli import interpretar
+from mini_interprete.errores import ErrorDeEvaluacion 
 
 
 def test_suma():
@@ -18,6 +19,10 @@ def test_multiplicacion():
 def test_division():
     assert interpretar("10 / 2") == 5
 
+#Caso frontera
+def test_division_entre_cero():
+    with pytest.raises(ErrorDeEvaluacion):
+        interpretar("10 / 0")
 
 def test_precedencia_sin_parentesis():
     assert interpretar("3 + 4 * 2") == 11
