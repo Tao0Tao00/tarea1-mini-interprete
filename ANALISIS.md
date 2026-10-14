@@ -19,10 +19,10 @@
 
 | Componente | Qué recibe | Qué entrega | De qué es responsable |
 |---|---|---|---|
-| `lexer` | | | |
-| `parser` | | | |
-| `ast` | | | |
-| `evaluator` | | | |
+| `lexer` |Texto de la expresion (str) |Una lista de Token(tipo, valor, posicion) |Recorre el texto, saltar espacios, agrupar los digitos en numero y tokenizar los simbolos |
+| `parser` |Lista de tokens |AST(nodo raiz) |Aplica la gramatica(expresion, termino, factor) para agrupar la expresion, ademas que lanza un `ErrorDeSintaxis` cuando los tokens no forman una expresion valida |
+| `ast` |Operador y nodos hijo o un valor numerico | Nodos `Numero` y `OperacionBinaria` |Define la estructura del arbol AST ya agrupado |
+| `evaluator` | El AST completo |Un numero |Recorre el arbol de abajo hacia arriba y evalua los lados con sus respectivos operadores, Da un `ErrorDeEvaluacion` en casos no evaluables |
 
 ### 1.2 ¿Qué recorrido sigue una expresión desde que se recibe como texto hasta que produce un resultado?
 
@@ -31,9 +31,9 @@
 | Etapa | Cómo se ve `(3 + 4) * 2` aquí |
 |---|---|
 | texto | `"(3 + 4) * 2"` |
-| tokens | |
-| AST | |
-| resultado | |
+| tokens |`[Token(PAR_IZQ, '(', 0), Token(NUMERO, 3, 1), Token(MAS, '+', 3), Token(NUMERO, 4, 5), Token(PAR_DER, ')', 6), Token(POR, '*', 8), Token(NUMERO, 2, 10)]` |
+| AST |`OperacionBinaria'*', OperacionBinaria('+', Numero(3), Numero(4), Numero(2))` |
+| resultado |14 |
 
 > Para el renglón del AST, dibújenlo **primero ustedes** y después comprueben
 > con `python3 interprete.py --arbol "(3 + 4) * 2"`. Si su dibujo y el del
