@@ -24,7 +24,7 @@ def test_parentesis_extra():
     with pytest.raises(ErrorDeSintaxis):
         interpretar("9)")
 
-def test_sin_segundo_operando():
+def test_sin_segundo_termino():
     with pytest.raises(ErrorDeSintaxis):
         interpretar("9 +")
 

@@ -79,7 +79,15 @@
 
 | Prueba (archivo::nombre) | Entrada | Esperado | Categoría | ¿Por qué esa categoría? |
 |---|---|---|---|---|
-| | | | | |
+| test_invalidos::test_entrada_vacia | "" | ErrorDeSintaxis | Entrada inválida | Para que sea válida necesita por lo menos un número (o un número entre parentesis) |
+| test_invalidos::test_con_letras | 2 + Laboon | ErrorDeSintaxis | Entrada invalida | Sólo se permiten números, paréntesis y símbolos de operadores (+ - * /)|
+| test_invalidos::test_sin_operador | 2 9 | ErrorDeSintaxis | Entrada inválida | No pueden estar dos números sin estar unidos por un operador |
+| test_invalidos::test_dos_operadores_seguidos | 2 +* 9 | ErrorDeSintaxis | Entrada inválida | Dos operadores no pueden estar directamente juntos |
+| test_invalidos::test_parentesis_extra | 9) | ErrorDeSintaxis | Entrada inválida | Se cierra un paréntesis que no se abrió |
+| test_invalidos::test_sin_segundo_termino | 9 + | ErrorDeSintaxis | Entrada inválida | Un operador debe de tener 2 números con los que trabajar, si solo hay uno no funciona |
+| test_invalidos::test_negativo | -9 | ErrorDeSintaxis | Entrada inválida | Los números deben ser enteros y sin signo |
+| test_invalidos::test_parentesis_sin_cerrar | (2 + 9 | ErrorDeSintaxis | Entrada inválida |  Se abre un paréntesis que no se cierra |
+|test_invalidos::test_simbolo_desconocido | 2 + 9 & | ErrorDeSintaxis | Entrada inválida | Sólo se permiten números, paréntesis y símbolos de operadores (+ - * /)|
 
 ---
 
