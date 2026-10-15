@@ -18,6 +18,19 @@ def test_multiplicacion():
 
 def test_division():
     assert interpretar("10 / 2") == 5
+#Caso normal
+
+def test_diferentes_niveles1():
+    assert interpretar ("8 - 6 / 2") == 5.0
+
+def test_diferentes_niveles2():
+    assert interpretar ("8 + 6 * 2") == 20.0
+
+def test_multiplicacion_antes_que_suma():
+    assert interpretar ("3 * 3 + 2") == 11.0
+
+def test_division_antes_que_resta():
+    assert interpretar ("8 / 2 - 3") == 1.0
 
 #Caso frontera
 def test_division_entre_cero():
