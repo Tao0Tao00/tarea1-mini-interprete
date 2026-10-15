@@ -10,7 +10,7 @@ def test_entrada_vacia():
 
 def test_con_letras():
     with pytest.raises(ErrorDeSintaxis):
-        interpretar("5 + Laboon")
+        interpretar("2 + Laboon")
 
 def test_sin_operador():
     with pytest.raises(ErrorDeSintaxis):
@@ -18,8 +18,24 @@ def test_sin_operador():
 
 def test_dos_operadores_seguidos():
     with pytest.raises(ErrorDeSintaxis):
-        interpretar("1 +* 1")
+        interpretar("2 +* 9")
+
+def test_parentesis_extra():
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("9)")
+
+def test_sin_segundo_operando():
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("9 +")
+
+def test_negativo():
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("-9")
 
 def test_parentesis_sin_cerrar():
     with pytest.raises(ErrorDeSintaxis):
-        interpretar("7)")
+        interpretar("(2 + 9")
+
+def test_simbolo_desconocido():
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("2 + 9 &")
