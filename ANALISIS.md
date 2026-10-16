@@ -94,6 +94,7 @@
 ## 4. Los defectos
 
 ### 4.1 ¿Qué defecto reveló primero una prueba nueva?
+La prueba que reveló el defecto es la de entrada vacía (con la entrada ""), ya que lanzaba el error de IndexError en lugar de ErrorDeSintaxis. El defecto se encuentra en parser.py, ahí el método _avanzar ejecutaba elf.tokens[self.pos] sin antes sevisar si ya no quedaban tokens.
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
 
