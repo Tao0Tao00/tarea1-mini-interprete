@@ -32,6 +32,18 @@ def test_multiplicacion_antes_que_suma():
 def test_division_antes_que_resta():
     assert interpretar ("8 / 2 - 3") == 1.0
 
+def test_mismo_nivel_resta():
+    assert interpretar ("10 - 3 - 2") == 5.0
+
+def test_mismo_nivel_division():
+    assert interpretar ("8 / 4 / 2") == 1.0
+
+def test_mismo_nivel_2():
+    assert interpretar("8 / 2 * 2") == 8.0
+
+def test_mismo_nivel_3():
+    assert interpretar("10 - 3 + 2") == 9.0
+
 #Caso frontera
 def test_division_entre_cero():
     with pytest.raises(ErrorDeEvaluacion):
