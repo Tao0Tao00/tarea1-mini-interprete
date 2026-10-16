@@ -47,7 +47,7 @@ class Parser:
         self.pos += 1
         return token
 
-    def posicion_final(self):
+    def _posicion_final(self):
         if self.tokens:
             return self.tokens[-1].posicion
         return 0
