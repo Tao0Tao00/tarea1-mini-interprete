@@ -106,7 +106,7 @@ No respetaba la fila de *Entrada inválida* donde se dice que el programa debe r
 
 | Defecto | Entrada que lo revela | Daba | Debería dar | Commit rojo | Commit verde |
 |---|---|---|---|---|---|
-| _avanzar ejecutaba elf.tokens[self.pos] sin revisar si ya no quedaban tokens | "" | IndexError | ErrorDeSintaxis | 01ce476 | orita lo reviso unu |
+| _avanzar ejecutaba elf.tokens[self.pos] sin revisar si ya no quedaban tokens | "" | IndexError | ErrorDeSintaxis | 01ce476 | e143454 |
 | parsear no revisaba si sobraban tokens | 2 9 | no lanzaba error | ErrorDeSintaxis | 01ce476 |	68ad726 |
 | lexer ignoraba los caracteres desconocidos | 2 + 9 & | no lanzaba error | ErrorDeSintaxis | e4d2016 |	68ad726 | 
 
