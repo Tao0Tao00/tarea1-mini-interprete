@@ -97,6 +97,7 @@
 La prueba que reveló el defecto es la de entrada vacía (con la entrada ""), ya que lanzaba el error de IndexError en lugar de ErrorDeSintaxis. El defecto se encuentra en parser.py, ahí el método _avanzar ejecutaba elf.tokens[self.pos] sin antes sevisar si ya no quedaban tokens.
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
+No respetaba la fila de *Entrada inválida* donde se dice que el programa debe rechazarse usando ErrorDeSintaxis y nunca con un error propio de Python, sin embargo el programa lo rechazaba con IndexError. También se menciona que los mensajes de error deben indicar la posicion dentro del texto, pero el error IndexError no menciona la posición del problema.
 
 > No basta con "daba mal". Digan contra qué lo están comparando: qué regla,
 > qué línea de la semántica declarada del README.
