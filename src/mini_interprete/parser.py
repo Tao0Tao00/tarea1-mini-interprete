@@ -27,7 +27,11 @@ class Parser:
 
     def parsear(self):
         """Construye el AST de la lista de tokens."""
-        return self._expresion()
+        arbol = self._expresion()
+        sobrante = self._actual()
+        if sobrante is not None:
+            raise ErrorDeSintaxis(f"Token inesperado {sobrante.valor!r}", sobrante.posicion)
+        return arbol
 
     def _actual(self):
         """El token en la posicion actual, o None si ya no quedan."""
@@ -37,26 +41,35 @@ class Parser:
 
     def _avanzar(self):
         """Consume el token actual y lo regresa."""
+        if self.pos >= len(self.tokens):
+            raise ErrorDeSintaxis("La expresion termino antes de tiempo", self._posicion_final())
         token = self.tokens[self.pos]
         self.pos += 1
         return token
 
+    def posicion_final(self):
+        if self.tokens:
+            return self.tokens[-1].posicion
+        return 0
+
     def _expresion(self):
         izquierda = self._termino()
         actual = self._actual()
-        if actual is not None and actual.tipo in OPERADORES_SUMA:
+        while actual is not None and actual.tipo in OPERADORES_SUMA:
             operador = self._avanzar()
-            derecha = self._expresion()
-            return OperacionBinaria(operador.valor, izquierda, derecha)
+            derecha = self._termino()
+            izquierda = OperacionBinaria(operador.valor, izquierda, derecha)
+            actual = self._actual()
         return izquierda
 
     def _termino(self):
         izquierda = self._factor()
         actual = self._actual()
-        if actual is not None and actual.tipo in OPERADORES_PRODUCTO:
+        while actual is not None and actual.tipo in OPERADORES_PRODUCTO:
             operador = self._avanzar()
-            derecha = self._termino()
-            return OperacionBinaria(operador.valor, izquierda, derecha)
+            derecha = self._factor()
+            izquierda = OperacionBinaria(operador.valor, izquierda, derecha)
+            actual = self._actual()
         return izquierda
 
     def _factor(self):
@@ -72,4 +85,4 @@ class Parser:
                 raise ErrorDeSintaxis("se esperaba ')'", cierre.posicion)
             return nodo
 
-        raise ErrorDeSintaxis(f"token inesperado {token.valor!r}", token.posicion)
+        raise ErrorDeSintaxis(f"Token inesperado {token.valor!r}", token.posicion)
