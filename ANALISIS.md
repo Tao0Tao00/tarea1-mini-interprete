@@ -68,7 +68,14 @@
 > qué combinación **no aparece nunca**.
 
 ### 2.2 ¿Qué comportamientos **no** estaban probados?
-
+# Ninguna de las 13 pruebas originales verificaba:
+- Ceros a la izquierda.
+- División real así que no distingue una división real de una entera (falta una prueba como 10 / 4 == 2.5).
+- División entre cero.
+- Que un número negativo se rechaace.
+- Asociatividad a la izquierda ya que ninguna encadena dos operadores iguales.
+- Entradas inválidas, ninguna espera ErrorDeSintaxis.
+- Que los mensajes de error indiquen la posición.
 > Ésta es la pregunta importante de toda la tarea. Tómense su tiempo.
 
 ---
