@@ -75,6 +75,11 @@ def test_suma_con_decimales():
         interpretar("3.2 + 4.0")
 
 #Agregado
+def test_suma_con_decimales():
+    #with pytest.raises(ErrorDeSintaxis):
+    assert interpretar("3 4")
+
+#Agregado
 def test_mismo_nivel_resta():
     assert interpretar ("0007-002") == 5.0
 

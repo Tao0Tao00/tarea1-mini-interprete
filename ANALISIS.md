@@ -96,16 +96,16 @@
 ## 4. Los defectos
 
 ### 4.1 ¿Qué defecto reveló primero una prueba nueva?
-Al faltar un simbolo antes de su termino en una prueba no tiene un mensaje de error
-El float sigue apareciendo aunque el resultado se una entero (int)
-Se puede considerar como error de sintaxis el menos al inicio 
-Error de sintaxis respecto a las operaciones con decimales 
+- Al faltar un simbolo antes de su termino en una prueba lanza erroneamente una posición de error mal
+- El float sigue apareciendo aunque el resultado se una entero (int)
+- Se puede considerar como error de sintaxis el menos al inicio 
+- Error de sintaxis por operador no existente
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
 Ya que los errores son faltas de implementación de consideración de entradas como:
-errores de falta de cerrar signos
-falta de implementación de decimales
-El uso de float no es incorrecto pero deja con decimales a enteros
+- Errores de falta de cerrar signos
+- Falta de implementación de decimales
+- El uso de float no es incorrecto pero deja con decimales a enteros
 > No basta con "daba mal". Digan contra qué lo están comparando: qué regla,
 > qué línea de la semántica declarada del README.
 
@@ -113,7 +113,10 @@ El uso de float no es incorrecto pero deja con decimales a enteros
 
 | Defecto | Entrada que lo revela | Daba | Debería dar | Commit rojo | Commit verde |
 |---|---|---|---|---|---|
-| Parentesis sin cerrar |test_parentesis_sin_cerar() |La expresion termino antes de tiempo (posicion 3)|Error de Sintaxis | | |
+| Parentesis sin cerrar |test_parentesis_sin_cerar() |La expresion termino antes de tiempo (posicion 3)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| Signo al inicio | test_signo_al_principio() |Token inesperado '-' (posicion 0)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| Operaciones con decimal | test_suma_con_decimales() | Caracter invalido '.' (posicion 1))|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| Numeros Separados | test_suma_con_decimales() | Caracter invalido '.' (posicion 1))|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
 
 ### 4.4 ¿Cómo saben que la corrección es general y no sólo hace pasar ese ejemplo?
 
