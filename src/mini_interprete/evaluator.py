@@ -25,9 +25,9 @@ def evaluar(nodo):
 
         operacion = OPERACIONES.get(nodo.operador)
         if operacion is None:
-            raise ErrorDeEvaluacion(f"operador desconocido {nodo.operador!r}")
+            raise ErrorDeEvaluacion(f"operador desconocido {nodo.operador!r}", 0)
         if nodo.operador == "/" and derecha == 0:
-            raise ErrorDeEvaluacion("division entre cero")
+            raise ErrorDeEvaluacion("division entre cero", 0)
         return operacion(izquierda, derecha)
 
-    raise ErrorDeEvaluacion(f"nodo desconocido: {nodo!r}")
+    raise ErrorDeEvaluacion(f"nodo desconocido: {nodo!r}", 0)

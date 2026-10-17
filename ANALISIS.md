@@ -2,11 +2,11 @@
 
 **Integrantes:**
 1.
-2.
-3.
+2.Esquivel Izquierdo Lizeth Suemy 
+3.Botello Salcido Gustavo
 
 **Fork:**
-**Rama:**
+**Rama:** entradas-invalidas
 
 > Contesten en este archivo. Respuestas breves y concretas: se califica que
 > hayan entendido, no la extensión.
@@ -77,6 +77,16 @@
 - Entradas inválidas, ninguna espera ErrorDeSintaxis.
 - Que los mensajes de error indiquen la posición.
 > Ésta es la pregunta importante de toda la tarea. Tómense su tiempo.
+- En las pruebas no esta incluida la división por cero en evaluator
+- Falta una prueba con doble parentesis
+- Falta elavorar una prueba que una división decimal como 10/4
+- Falta una resta negativa
+- Falta operadores consecutivos como la suma consecutiva, la multiplicación; la multiplicación seguida de la división, la suma seguida de la resta.
+- Una prueba con ceros enfrente de los números 
+- Hay un hueco de operaciones ya que -4-4 de un erros por comenzar con un operador 
+- Hueco de que siga la operación aunque el parentesis no este cerrado 
+- Hueco de caracteres invalidos 
+- Resta de numeros decimales (problema con los float)
 
 ---
 
@@ -101,10 +111,23 @@
 ## 4. Los defectos
 
 ### 4.1 ¿Qué defecto reveló primero una prueba nueva?
-La prueba que reveló el defecto es la de entrada vacía (con la entrada ""), ya que lanzaba el error de IndexError en lugar de ErrorDeSintaxis. El defecto se encuentra en parser.py, ahí el método _avanzar ejecutaba elf.tokens[self.pos] sin antes sevisar si ya no quedaban tokens.
+La prueba que reveló el defecto es la de entrada vacía (con la entrada ""), ya que lanzaba el error de IndexError en lugar de ErrorDeSintaxis. El defecto se encuentra en parser.py, ahí el método _avanzar ejecutaba self.tokens[self.pos] sin antes revisar si ya no quedaban tokens.
+
+- Al faltar un simbolo antes de su termino en una prueba lanza erroneamente una posición de error mal
+- El float sigue apareciendo aunque el resultado se una entero (int)
+- División entre cero
+- Se puede considerar como error de sintaxis el menos al inicio 
+- Error de sintaxis por operador no existente
+- Error por signos no considerados
+- Error de indicación del error por no haber numero despues de un signo
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
 No respetaba la fila de *Entrada inválida* donde se dice que el programa debe rechazarse usando ErrorDeSintaxis y nunca con un error propio de Python, sin embargo el programa lo rechazaba con IndexError. También se menciona que los mensajes de error deben indicar la posicion dentro del texto, pero el error IndexError no menciona la posición del problema.
+
+Ya que los errores son faltas de implementación de consideración de entradas como:
+- Errores de falta de cerrar signos
+- Falta de implementación de respuesta respecto a decimales
+- El uso de float no es incorrecto pero deja con decimales a enteros
 
 > No basta con "daba mal". Digan contra qué lo están comparando: qué regla,
 > qué línea de la semántica declarada del README.
@@ -113,14 +136,22 @@ No respetaba la fila de *Entrada inválida* donde se dice que el programa debe r
 
 | Defecto | Entrada que lo revela | Daba | Debería dar | Commit rojo | Commit verde |
 |---|---|---|---|---|---|
-| _avanzar ejecutaba elf.tokens[self.pos] sin revisar si ya no quedaban tokens | "" | IndexError | ErrorDeSintaxis | 01ce476 | e143454 |
+| _avanzar ejecutaba self.tokens[self.pos] sin revisar si ya no quedaban tokens | "" | IndexError | ErrorDeSintaxis | 01ce476 | e143454 |
 | parsear no revisaba si sobraban tokens | 2 9 | no lanzaba error | ErrorDeSintaxis | 01ce476 |	68ad726 |
 | lexer ignoraba los caracteres desconocidos | 2 + 9 & | no lanzaba error | ErrorDeSintaxis | e4d2016 |	68ad726 | 
+| Parentesis sin cerrar |test_parentesis_sin_cerrar_reporta_posicion_final() |La expresion termino antes de tiempo (posicion 3)|posición 4 |Corrección de Rojo | Corrección de Verde|
+| Suma sin segundo numero |test_expresion_incompleta_reporta_posicion_final() |La expresion termino antes de tiempo (posicion 2)|posición 3 |Corrección de Rojo | Corrección de Verde|
+| Signo al inicio | test_signo_al_principio() |Token inesperado '-' (posicion 0)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| División entre cero | test_division_entre_cero_reporta_posicion() |division entre cero (sin posición)|division entre cero (posicion 0) |ROJO | VERDE|
+| Operaciones con decimal | test_suma_con_decimales() | Caracter invalido '.' (posicion 1))|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| Numeros Separados | test_numeros_con_espacios() | Token inesperado 4 (posicion 3)|Error de Sintaxis |Error de numeros con espacio | Verde de numeros espaciados|
+| Simbolos como operadores | test_simbolos_invalidos(entrada) | Token inesperado 3 (posicion 3)|Error de Sintaxis |Falto un _ al inicio del posicion_final | Error de numeros con simbolos|
+
 
 ### 4.4 ¿Cómo saben que la corrección es general y no sólo hace pasar ese ejemplo?
-
+Hay unos especificos que no se pueden resolver por solo recibir enteros o no considerarse consisamente como erroes.
+Los generales que se resolvieron fue los indicadores de donde estaba especificamente el error modificando archivos como errores.py y evaluator.py, para que el mensaje fuera el inicado para el tipo de error, Y la división por cero que igual fuera considerada no solo el error de dividir por cero si no que indicar su posición
 ---
-
 ## 5. Diseño
 
 ### 5.1 ¿Qué duplicación o señal de mal diseño encontraron?

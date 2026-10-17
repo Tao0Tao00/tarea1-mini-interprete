@@ -47,9 +47,11 @@ class Parser:
         self.pos += 1
         return token
 
+        #Modificado: 
     def _posicion_final(self):
         if self.tokens:
-            return self.tokens[-1].posicion
+            ultimo = self.tokens[-1]
+            return ultimo.posicion + len(str(ultimo.valor))
         return 0
 
     def _expresion(self):
