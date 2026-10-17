@@ -76,8 +76,8 @@ def test_suma_con_decimales():
 
 #Agregado
 def test_suma_con_decimales():
-    #with pytest.raises(ErrorDeSintaxis):
-    assert interpretar("3 4")
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("3 4")
 
 #Agregado
 def test_mismo_nivel_resta():
