@@ -100,12 +100,14 @@
 - El float sigue apareciendo aunque el resultado se una entero (int)
 - Se puede considerar como error de sintaxis el menos al inicio 
 - Error de sintaxis por operador no existente
+- Error por signos no considerados
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
 Ya que los errores son faltas de implementación de consideración de entradas como:
 - Errores de falta de cerrar signos
-- Falta de implementación de decimales
+- Falta de implementación de respuesta respecto a decimales
 - El uso de float no es incorrecto pero deja con decimales a enteros
+
 > No basta con "daba mal". Digan contra qué lo están comparando: qué regla,
 > qué línea de la semántica declarada del README.
 
@@ -116,7 +118,9 @@ Ya que los errores son faltas de implementación de consideración de entradas c
 | Parentesis sin cerrar |test_parentesis_sin_cerar() |La expresion termino antes de tiempo (posicion 3)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
 | Signo al inicio | test_signo_al_principio() |Token inesperado '-' (posicion 0)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
 | Operaciones con decimal | test_suma_con_decimales() | Caracter invalido '.' (posicion 1))|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
-| Numeros Separados | test_suma_con_decimales() | Caracter invalido '.' (posicion 1))|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| Numeros Separados | test_numeros_con_espacios() | Token inesperado 4 (posicion 3)|Error de Sintaxis |Error de numeros con espacio | Verde de numeros espaciados|
+| Simbolos como operadores | test_simbolos_invalidos(entrada) | Token inesperado 3 (posicion 3)|Error de Sintaxis |Falto un _ al inicio del posicion_final | Error de numeros con simbolos|
+
 
 ### 4.4 ¿Cómo saben que la corrección es general y no sólo hace pasar ese ejemplo?
 

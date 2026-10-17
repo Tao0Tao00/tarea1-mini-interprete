@@ -75,9 +75,15 @@ def test_suma_con_decimales():
         interpretar("3.2 + 4.0")
 
 #Agregado
-def test_suma_con_decimales():
+def test_numeros_con_espacios():
     with pytest.raises(ErrorDeSintaxis):
         interpretar("3 4")
+
+#Agregado
+@pytest.mark.parametrize("entrada", ["3#4", "3$4", "3!4", "3&4", "3@4"])
+def test_simbolos_invalidos(entrada):
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar(entrada)
 
 #Agregado
 def test_mismo_nivel_resta():
