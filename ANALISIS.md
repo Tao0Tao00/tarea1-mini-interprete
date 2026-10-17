@@ -98,9 +98,11 @@
 ### 4.1 ¿Qué defecto reveló primero una prueba nueva?
 - Al faltar un simbolo antes de su termino en una prueba lanza erroneamente una posición de error mal
 - El float sigue apareciendo aunque el resultado se una entero (int)
+- División entre cero
 - Se puede considerar como error de sintaxis el menos al inicio 
 - Error de sintaxis por operador no existente
 - Error por signos no considerados
+
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
 Ya que los errores son faltas de implementación de consideración de entradas como:
@@ -117,6 +119,7 @@ Ya que los errores son faltas de implementación de consideración de entradas c
 |---|---|---|---|---|---|
 | Parentesis sin cerrar |test_parentesis_sin_cerar() |La expresion termino antes de tiempo (posicion 3)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
 | Signo al inicio | test_signo_al_principio() |Token inesperado '-' (posicion 0)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| División entre cero | test_division_entre_cero_reporta_posicion() |division entre cero (sin posición)|division entre cero (posicion 0) |ROJO | VERDE|
 | Operaciones con decimal | test_suma_con_decimales() | Caracter invalido '.' (posicion 1))|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
 | Numeros Separados | test_numeros_con_espacios() | Token inesperado 4 (posicion 3)|Error de Sintaxis |Error de numeros con espacio | Verde de numeros espaciados|
 | Simbolos como operadores | test_simbolos_invalidos(entrada) | Token inesperado 3 (posicion 3)|Error de Sintaxis |Falto un _ al inicio del posicion_final | Error de numeros con simbolos|
