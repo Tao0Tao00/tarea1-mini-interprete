@@ -2,7 +2,7 @@
 
 **Integrantes:**
 1.
-2.
+2.Esquivel Izquierdo Lizeth Suemy 
 3.
 
 **Fork:**
@@ -70,6 +70,16 @@
 ### 2.2 ¿Qué comportamientos **no** estaban probados?
 
 > Ésta es la pregunta importante de toda la tarea. Tómense su tiempo.
+- En las pruebas no esta incluida la división por cero en evaluator
+- Falta una prueba con doble parentesis
+- Falta elavorar una prueba que una división decimal como 10/4
+- Falta una resta negativa
+- Falta operadores consecutivos como la suma consecutiva, la multiplicación; la multiplicación seguida de la división, la suma seguida de la resta.
+- Una prueba con ceros enfrente de los números 
+- Hay un hueco de operaciones ya que -4-4 de un erros por comenzar con un operador 
+- Hueco de que siga la operación aunque el parentesis no este cerrado 
+- Hueco de caracteres invalidos 
+- Resta de numeros decimales (problema con los float)
 
 ---
 
@@ -86,6 +96,7 @@
 ## 4. Los defectos
 
 ### 4.1 ¿Qué defecto reveló primero una prueba nueva?
+
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
 
