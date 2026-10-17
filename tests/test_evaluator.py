@@ -65,11 +65,6 @@ def test_parentesis_sin_cerrar_reporta_posicion_final():
         interpretar("(3+4")
     assert info.value.posicion == 4
 
-#Agregado
-def test_parentesis_sin_cerrar_reporta_posicion_final():
-    with pytest.raises(ErrorDeSintaxis) as info:
-        interpretar("(3+4")
-    assert info.value.posicion == 4
 
 #Agregado
 def test_expresion_incompleta_reporta_posicion_final():

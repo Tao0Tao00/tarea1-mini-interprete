@@ -102,6 +102,7 @@
 - Se puede considerar como error de sintaxis el menos al inicio 
 - Error de sintaxis por operador no existente
 - Error por signos no considerados
+- Error de indicación del error por no haber numero despues de un signo
 
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
@@ -117,7 +118,8 @@ Ya que los errores son faltas de implementación de consideración de entradas c
 
 | Defecto | Entrada que lo revela | Daba | Debería dar | Commit rojo | Commit verde |
 |---|---|---|---|---|---|
-| Parentesis sin cerrar |test_parentesis_sin_cerar() |La expresion termino antes de tiempo (posicion 3)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
+| Parentesis sin cerrar |test_parentesis_sin_cerrar_reporta_posicion_final() |La expresion termino antes de tiempo (posicion 3)|posición 4 |Corrección de Rojo | Corrección de Verde|
+| Suma sin segundo numero |test_expresion_incompleta_reporta_posicion_final() |La expresion termino antes de tiempo (posicion 2)|posición 3 |Corrección de Rojo | Corrección de Verde|
 | Signo al inicio | test_signo_al_principio() |Token inesperado '-' (posicion 0)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
 | División entre cero | test_division_entre_cero_reporta_posicion() |division entre cero (sin posición)|division entre cero (posicion 0) |ROJO | VERDE|
 | Operaciones con decimal | test_suma_con_decimales() | Caracter invalido '.' (posicion 1))|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
@@ -126,8 +128,9 @@ Ya que los errores son faltas de implementación de consideración de entradas c
 
 
 ### 4.4 ¿Cómo saben que la corrección es general y no sólo hace pasar ese ejemplo?
-
 ---
+Hay unos especificos que no se pueden resolver por solo recibir enteros o no considerarse consisamente como erroes.
+Los generales que se resolvieron fue los indicadores de donde estaba especificamente el error modificando archivos como errores.py y evaluator.py, para que el mensaje fuera el inicado para el tipo de error, Y la división por cero que igual fuera considerada no solo el error de dividir por cero si no que indicar su posición
 
 ## 5. Diseño
 
