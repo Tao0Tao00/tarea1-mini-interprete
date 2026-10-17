@@ -21,3 +21,9 @@ class ErrorDeSintaxis(ErrorDelInterprete):
 
 class ErrorDeEvaluacion(ErrorDelInterprete):
     """La expresion es valida pero no se puede evaluar."""
+
+    #Agregado:
+    def __init__(self, mensaje: str, posicion: int):
+        self.mensaje = mensaje
+        self.posicion = posicion
+        super().__init__(f"{mensaje} (posicion {posicion})")
