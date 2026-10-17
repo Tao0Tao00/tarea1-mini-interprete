@@ -33,7 +33,8 @@ def test_multiplicacion_antes_que_suma():
 
 def test_division_antes_que_resta():
     assert interpretar ("8 / 2 - 3") == 1.0
-#Caso frontera
+
+#Agregado
 def test_mismo_nivel_suma():
     assert interpretar ("10 + 4 + 1") == 15.0
 
@@ -42,7 +43,8 @@ def test_mismo_nivel_resta():
 
 def test_mismo_nivel_division():
     assert interpretar ("8 / 4 / 2") == 1.0
-#Caso frontera
+
+#Agregado
 def test_mismo_nivel_multiplicacion():
     assert interpretar ("2 * 4 * 1") == 8.0
 
@@ -52,23 +54,27 @@ def test_mismo_nivel_2():
 def test_mismo_nivel_3():
     assert interpretar("10 - 3 + 2") == 9.0
 
-#Caso frontera
+#Agregado
 def test_division_entre_cero():
-    #with pytest.raises(ErrorDeEvaluacion):
-    assert interpretar("10 / 0")
-#Caso frontera
+    with pytest.raises(ErrorDeEvaluacion):
+        interpretar("10 / 0")
+
+#Agregado
 def test_parentesis_sin_cerrar():
-    #with pytest.raises(ErrorDeSintaxis):
-    assert   interpretar("( 3 + 4")
-#Caso frontera
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("( 3 + 4")
+
+#Agregado
 def test_signo_al_principio():
-    #with pytest.raises(ErrorDeSintaxis):
-    assert interpretar("-3 + 4")
-#Caso frontera
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("-3 + 4")
+
+#Agregado
 def test_suma_con_decimales():
-   # with pytest.raises(ErrorDeSintaxis):
-    assert interpretar("3.2 + 4.0")
-#Caso frontera
+    with pytest.raises(ErrorDeSintaxis):
+        interpretar("3.2 + 4.0")
+
+#Agregado
 def test_mismo_nivel_resta():
     assert interpretar ("0007-002") == 5.0
 

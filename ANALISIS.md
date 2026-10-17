@@ -96,10 +96,16 @@
 ## 4. Los defectos
 
 ### 4.1 ¿Qué defecto reveló primero una prueba nueva?
-
+Al faltar un simbolo antes de su termino en una prueba no tiene un mensaje de error
+El float sigue apareciendo aunque el resultado se una entero (int)
+Se puede considerar como error de sintaxis el menos al inicio 
+Error de sintaxis respecto a las operaciones con decimales 
 
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
-
+Ya que los errores son faltas de implementación de consideración de entradas como:
+errores de falta de cerrar signos
+falta de implementación de decimales
+El uso de float no es incorrecto pero deja con decimales a enteros
 > No basta con "daba mal". Digan contra qué lo están comparando: qué regla,
 > qué línea de la semántica declarada del README.
 
@@ -107,7 +113,7 @@
 
 | Defecto | Entrada que lo revela | Daba | Debería dar | Commit rojo | Commit verde |
 |---|---|---|---|---|---|
-| | | | | | |
+| Parentesis sin cerrar |test_parentesis_sin_cerar() |La expresion termino antes de tiempo (posicion 3)|Error de Sintaxis | | |
 
 ### 4.4 ¿Cómo saben que la corrección es general y no sólo hace pasar ese ejemplo?
 
