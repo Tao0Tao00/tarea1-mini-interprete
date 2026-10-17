@@ -60,6 +60,12 @@ def test_division_entre_cero():
         interpretar("10 / 0")
 
 #Agregado
+def test_division_entre_cero_reporta_posicion():
+    with pytest.raises(ErrorDeEvaluacion) as info:
+        interpretar("10 / 0")
+    assert "posicion" in str(info.value)
+
+#Agregado
 def test_parentesis_sin_cerrar():
     with pytest.raises(ErrorDeSintaxis):
         interpretar("( 3 + 4")
