@@ -9,7 +9,6 @@ truena de alguna manera".
 class ErrorDelInterprete(Exception):
     """Error base. Todo lo que el interprete reporta hereda de aqui."""
 
-
 class ErrorDeSintaxis(ErrorDelInterprete):
     """La entrada no forma una expresion valida."""
 

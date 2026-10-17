@@ -54,25 +54,22 @@ class Parser:
             return ultimo.posicion + len(str(ultimo.valor))
         return 0
 
-    def _expresion(self):
-        izquierda = self._termino()
+    #Refactorizacion
+    def _binaria(self, siguiente, operadores):
+        izquierda = siguiente()
         actual = self._actual()
-        while actual is not None and actual.tipo in OPERADORES_SUMA:
+        while actual is not None and actual.tipo in operadores:
             operador = self._avanzar()
-            derecha = self._termino()
+            derecha = siguiente()
             izquierda = OperacionBinaria(operador.valor, izquierda, derecha)
             actual = self._actual()
         return izquierda
 
+    def _expresion(self):
+        return self._binaria(self._termino, OPERADORES_SUMA)
+
     def _termino(self):
-        izquierda = self._factor()
-        actual = self._actual()
-        while actual is not None and actual.tipo in OPERADORES_PRODUCTO:
-            operador = self._avanzar()
-            derecha = self._factor()
-            izquierda = OperacionBinaria(operador.valor, izquierda, derecha)
-            actual = self._actual()
-        return izquierda
+        return self._binaria(self._factor, OPERADORES_PRODUCTO)
 
     def _factor(self):
         token = self._avanzar()

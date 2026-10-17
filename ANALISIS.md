@@ -139,10 +139,18 @@ Los generales que se resolvieron fue los indicadores de donde estaba especificam
 > Al menos dos. Usen el vocabulario de clase: duplicación, rigidez,
 > acoplamiento alto, condicionales repetidos, amplificación del cambio.
 
+En evaluator.py se tenia que cada operador se manejaba con un if propio teniendo 4 bloques de if practicamente identicos entonces
+se presenta un mal diseño de **condicionales** explosivos ya que se usa mucho el if para cada operador.
+En parser.py en _expresion y _termino despues de la correcion que se hizo estos tenian una funcion bastante similar siendo una **duplicacion** de codigo.
 ### 5.2 ¿Qué refactorización realizaron, y por qué conserva el comportamiento?
 
 > "Las pruebas siguen pasando" es parte de la respuesta, pero no toda.
 > ¿Por qué el cambio es equivalente?
+
+En evaluator.py para refactorizar los condicionales explosivos se paso a una tabla OPERACIONES donde cada simbolo tiene su funcion y evaluar busca en OPERACIONES para encontrar la funcion del operador
+esto conserva el comportamiento ya que se ejecuta la misma operacion de cada operador, mantienen el orden de evaluacion, mantiene los errores como la division entre 0 o un nodo desconocido, y al ejecutar pytest 
+se mantienen en OK las pruebas.
+Para parser.py con _termino y _expresion al solo ser un metodo que manden a llamar que mantiene su comportamiento, solo el cambio que tienen estos es que operador acepta, por lo que el ciclo que tenian solo se escribe una vez y _expresion y _termino quedan con una linea de codigo
 
 ### 5.3 ¿Sería pertinente usar Factory Method, Adapter o ninguno?
 
@@ -150,9 +158,19 @@ Los generales que se resolvieron fue los indicadores de donde estaba especificam
 > digan qué problema concreto resuelve y qué costo tiene. Si dicen que no,
 > digan qué tendría que cambiar en el sistema para que empezara a convenir.
 
+Ninguno pero, Factory Method podriamos usarlo para los operadores como una clase operador y sus subclases para cada uno, pero esto no ayuda a resolver algo del codigo, ya que el parser sabe que nodo crear, siendo Numero
+y OperacionBinaria, ademas que aun faltaria declarar el lexer, entonces Factory terminaria siendo mas como un diccionario.
+Con Adapter no se aplica ya que no hay interfaces incompatibles ya que cada uno ya funciona correctamente entre ellos, siendo mas una traduccion entre estos como una capa o ub paso mas que no es necesario hacer, en el caso 
+que se quiera agregar otra pieza como una interfaz donde se useb tuplas en lugar de Token, se le podria dar un uso, pero Factory sera el que talvez se le pueda sacar mas provecho si se añaden muchos mas operadores ya que tendrian su comportamiento propio como validaciones propias quedando encapsuladas cada uno en su clase lo que simplificaria el codigo
+
 ### 5.4 ¿Qué parte del sistema sería más difícil de modificar si se agregara un operador nuevo?
 
 > Por ejemplo `%`. ¿Cuántos archivos hay que tocar? ¿Por qué?
+
+Si se quiere agregar % se tendria que modificar tokens.py (agregar MODULO), lexer.py(agregar % como simbolo), parser.py (agregar TipoToken.MODULO a OPERADORES_PRODUCTO y tenga la misma precedencia de * y /) y 
+evaluator.py (agregar % a OPERACIONES ademas que se debe tratar la comprobacion de 0 si se pone 5 % 0 siendo un Error de Evaluacion) por lo que lo dificil de agregar otro es que hay distintas representacion para los operadores
+y no hay un unico lugar en el que sean declaradas, por lo que si se quiere agregar otro operador se ve obligado a modificar varios archivos y su codigo y si tiene un comportamiento especial como la division entre
+se tenga que tomar en cuenta como un error.
 
 ---
 
