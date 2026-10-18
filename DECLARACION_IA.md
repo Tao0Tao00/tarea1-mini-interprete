@@ -54,6 +54,7 @@ Textuales, tal como los escribieron. No los limpien ni los reescriban.
 ```
 huh? avr, paso a paso, ya hice clone, que sigue unu
 ```
+```
 oya oya, avr, hago mis preguntas viendo la tabla de la seccion 7
 hay algun numero con 0s a la izquierda? no
 hay alguna prueba que divida? si, la 4ta de evaluator, si no existiera la regla 2 se rompería?  creo que no, osea es verde, osea va en 2.2
@@ -63,6 +64,7 @@ hay alguna prueba que tenga la prioridad de operaciones? primero parentesis, lue
 hay alguna prueba con asociatividad? no
 hay alguna con espacios? si, la 3ra de lexer, falla si la regla 7 no existe? ....sssssi?, creo que si, o no... no se pdn
 y las otras 2 reglas no aplican pq ninguna falla
+```
 ```
 como veo el historial de commits jeje xd
 ```
