@@ -106,7 +106,7 @@ Ninguna de las 13 pruebas originales verificaba:
 | test_evaluator::test_mismo_nivel_multiplicacion | 2 * 4 * 1 | 8.0 | Normal | Encadena dos multiplicaciones |
 | test_evaluator::test_mismo_nivel_2 | 8 / 2 * 2 | 8.0 | Normal | Mezcla / y *, que tienen la misma precedencia |
 | test_evaluator::test_mismo_nivel_3 | 10 - 3 + 2 | 9.0 | Normal | Mezcla - y +, que tienen la misma precedencia |
-| test_evaluator::test_division_entre_cero | 10 / 0 | ErrorDeEvaluacion | Frontera | Está bien escrita, pero no se puede calcular; es un extremo de lo que la división admite, y el error es de evaluación, no de sintaxis |
+| test_evaluator::test_division_entre_cero | 10 / 0 | ErrorDeEvaluacion | Frontera | Está bien escrita, pero no se puede calcular. Es un extremo de lo que la división admite, y el error es de evaluación, no de sintaxis |
 | test_evaluator::test_mismo_nivel_resta | 0007-002 | 5.0 | Frontera | Números con ceros a la izquierda: el README dice que 007 es 7, así que la expresión vale 7 - 2 |
 | test_evaluator::test_numero_entre_parentesis | (7) | 7 | Frontera | Es lo más chico que cabe en un paréntesis: encierra solo un número, sin ningún operador, en el borde de la regla factor |
 | test_invalidos::test_entrada_vacia | "" | ErrorDeSintaxis | Entrada inválida | Para que sea válida necesita por lo menos un número (o un número entre parentesis) |
