@@ -1,8 +1,13 @@
 # Declaración de uso de Inteligencia Artificial
 
 **Actividad:**
+Tarea 1
+
 **Integrantes:**
-**Fecha:**
+Omar Díaz Aguilar, Lizeth Suemy Esquivel Izquierdo, Gustavo Botello Salcido
+
+**Fecha:** 
+16/Oct/2026
 
 > Esta declaración es obligatoria en toda tarea, práctica y en el proyecto final.
 > **No da ni quita puntos**: es un reporte adicional que se revisa aparte y se
@@ -22,6 +27,7 @@
 
 | Herramienta | Versión o modelo, si lo saben |
 |---|---|
+| Claude ia | Sonet 5.5 |
 |DeepSeek | |
 
 > Cuenta también el autocompletado del editor (Copilot y similares). Si sólo
@@ -33,6 +39,9 @@
 
 | Para qué la usamos | En qué parte del entregable |
 |---|---|
+| Interpretar instrucciones iniciales | Ninguna parte |
+| Ayuda general con git e identificar commits rojos y verdes | Tabla 4.3 |
+| Correciones de redacción | ANALISIS.md |
 | Para dudas de comprensión existentes de python respecto a algunso metodos y apoyo para identificar como hacer una prueba en python | Unas fueron teoricas, una prueba que despues de comprender solo la modifique otras veces esta en evaluator.py |
 
 > Sean específicos. *"Para la tarea"* no dice nada.
@@ -43,12 +52,27 @@
 ## 3. Prompts principales
 
 Textuales, tal como los escribieron. No los limpien ni los reescriban.
-
+```
+huh? avr, paso a paso, ya hice clone, que sigue unu
+```
 ```
 Que "42" produzca [Token(NUMERO, 42, 0)]
 LO que hace esto es pasar tipo si da 41 pasar a 41,0?
 ```
-
+```
+oya oya, avr, hago mis preguntas viendo la tabla de la seccion 7
+hay algun numero con 0s a la izquierda? no
+hay alguna prueba que divida? si, la 4ta de evaluator, si no existiera la regla 2 se rompería?  creo que no, osea es verde, osea va en 2.2
+hay alguna prueba que divida entre 0? no
+hay alguna prueba que tenga un numero negativo? no
+hay alguna prueba que tenga la prioridad de operaciones? primero parentesis, luego / y *, al final + y -, si, la 5ta y 6ta de evaluator, 2da y 3ra de parser, se rompen si no exisiera la regla 5? 5 de evaluator si y va a 2.2, 6ta de evaluator creo que no, 2da de parser si y va a 2.2, 3ra de parser creo que no
+hay alguna prueba con asociatividad? no
+hay alguna con espacios? si, la 3ra de lexer, falla si la regla 7 no existe? ....sssssi?, creo que si, o no... no se pdn
+y las otras 2 reglas no aplican pq ninguna falla
+```
+```
+como veo el historial de commits jeje xd
+```
 ```
 pero entonces que hace, osea checa que este un numero en la primera posición? y no un operador?
 
@@ -198,6 +222,10 @@ class ErrorDeEvaluacion(ErrorDelInterprete):
 
 | Qué produjo la herramienta | ¿Aceptado, modificado o descartado? | Por qué | Dónde quedó (archivo / commit) |
 |---|---|---|---|
+| Análisis de las instrucciones iniciales | Aceptado | No se implementó en ninguna parte del código, solo era para entender la tarea | Ningún lado |
+| Revisión de redacción en las preguntas 4.1 y 4.2| Modificado | Solo explicaba en que fallaba la redacción, nunca escribió por su cuenta las respuestas, había que implementar sus observaciones a la respuesta final | ANALISIS.md, commits: e2cbc4c e17d159|
+| Revisión de identificacón de comportamientos no probados (2.2) | Modificado | Aunque interpreté mal lo que significaba que un comportamiento no estuviera probado, tuve que adaptar la respuesta de la ia | ANALISIS.m pregunta 2.2, commit: 0a179f1 | 
+| Comandos de git sobre ramas, e historial de commits para identificar commits rojos y verdes | Aceptado | Son comandos de terminal | ANALISIS.md pregunta 4.3, commit: e0ad237 |  
 |En las que le pedí un resultado/corrección mando código | Aceptado | Depende de que pedí, si no pedí una respuesta de codigo solo me fijo en las primera respuesta de "Esta mal", hago mis intentos para saber que es lo que esta mal y si pedí codigo pues tomo y leo toda la respuesta para saber que voy a copiar | en test_evaluator.py, los metodos copiados son dos: test_division_entre_cero_reporta_posicion() y test_division_entre_cero()|
 
 > **"Lo descartamos" es una respuesta excelente**, si dicen por qué.
@@ -210,6 +238,8 @@ Se les pidió intentarlo primero por su cuenta. Si lo hicieron así:
 
 | | |
 |---|---|
+| ¿Qué encontró la herramienta que ustedes **no** habían notado? | Distinguir cuando un comportamiento no estaba probado |
+| ¿Qué **no** encontró, que en este curso sí consideramos un problema? | Nada, al menos no con el contexto que le di |
 | ¿Qué encontró la herramienta que ustedes **no** habían notado? | En un test que hice mal me mando la corrección usando funciones que no había identificado, cuando no sabía una implementación de python en vez de buscar por google lo busque por la IA  |
 | ¿Qué **no** encontró, que en este curso sí consideramos un problema? | |
 
@@ -220,6 +250,9 @@ Se les pidió intentarlo primero por su cuenta. Si lo hicieron así:
 > Si no usaron IA para el análisis, escriban *"no aplica"*.
 
 ### 4.2 ¿Cómo verificaron que lo que incorporaron era correcto?
+
+Los comandos hacían lo que necesitaba, las verificaciones de redacción tenían sentido y mostraban en que partes me equivoqué o pude haberlo hecho mejor.
+
 Pasaron los test que quería que pasaran, como:
 test_division_entre_cero() o test_expresion_incompleta_reporta_posicion_final()
 la logíca que tambien se implemento fue coherente, ademas que las modificaciones al codigo fueron echas sin IA, solo la prueba 
@@ -232,11 +265,15 @@ la logíca que tambien se implemento fue coherente, ademas que las modificacione
 
 ### 5.1 ¿Qué limitación concreta observaron **en esta actividad**?
 
+Claude no tenía todo el contexto de la actividad, solo pensaba con el material que yo le daba. Entonces pudo cometer errores por falta de contexto, aunque en mi caso concreto no fue asi
+
 > Concreta. No *"a veces se equivoca"*, sino *"propuso pruebas sólo para
 > m = 4 y nunca para órdenes impares, porque no conocía la definición del
 > laboratorio"*.
 Las intrucciones transmitidas a la IA deben de ser muy concretas ya que por ejemplo le pedi apoyo para buscar una solución a la agrupación de signos y al enviarle un ejemplo del metodo que estaba proponiendo uso el comportamiento del metodo y implemento lo que le pedí.
 ### 5.2 ¿Qué harían distinto la próxima vez?
+
+Tratar de leer con calma las instrucciones de la actividad y antes de hacer nada, ver como funcionaba el problema original.
 
 ---
 
@@ -247,4 +284,5 @@ Las intrucciones transmitidas a la IA deben de ser muy concretas ya que por ejem
 
 | Nombre | Número de cuenta |
 |---|---|
+| Gustavo Botello Salcido | 323177308 |
 | Lizeth Suemy Esquivel Izquierdo |32333374-2 |

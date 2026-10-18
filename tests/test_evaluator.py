@@ -106,3 +106,6 @@ def test_precedencia_sin_parentesis():
 
 def test_precedencia_con_parentesis():
     assert interpretar("(3 + 4) * 2") == 14
+
+def test_numero_entre_parentesis():
+    assert interpretar("(7)") == 7

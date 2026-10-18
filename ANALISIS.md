@@ -1,12 +1,12 @@
 # Análisis — Tarea 1
 
 **Integrantes:**
-1.
+1.Díaz Aguilar Omar
 2.Esquivel Izquierdo Lizeth Suemy 
-3.
+3.Botello Salcido Gustavo
 
-**Fork:**
-**Rama:**
+**Fork:** Tao0Tao00/tarea1-mini-interprete
+**Rama:** entradas-invalidas
 
 > Contesten en este archivo. Respuestas breves y concretas: se califica que
 > hayan entendido, no la extensión.
@@ -68,7 +68,14 @@
 > qué combinación **no aparece nunca**.
 
 ### 2.2 ¿Qué comportamientos **no** estaban probados?
-
+Ninguna de las 13 pruebas originales verificaba:
+- Ceros a la izquierda.
+- División real así que no distingue una división real de una entera (falta una prueba como 10 / 4 == 2.5).
+- División entre cero.
+- Que un número negativo se rechaace.
+- Asociatividad a la izquierda ya que ninguna encadena dos operadores iguales.
+- Entradas inválidas, ninguna espera ErrorDeSintaxis.
+- Que los mensajes de error indiquen la posición.
 > Ésta es la pregunta importante de toda la tarea. Tómense su tiempo.
 - En las pruebas no esta incluida la división por cero en evaluator
 - Falta una prueba con doble parentesis
@@ -89,13 +96,36 @@
 
 | Prueba (archivo::nombre) | Entrada | Esperado | Categoría | ¿Por qué esa categoría? |
 |---|---|---|---|---|
-| | | | | |
+| test_evaluator::test_diferentes_niveles1 | 8 - 6 / 2 | 5.0 | Normal | Expresión válida y común: la división se hace antes que la resta |
+| test_evaluator::test_diferentes_niveles2 | 8 + 6 * 2 | 20.0 | Normal | Expresión válida y común: la multiplicación se hace antes que la suma |
+| test_evaluator::test_multiplicacion_antes_que_suma | 3 * 3 + 2 | 11.0 | Normal | Igual que la anterior, pero con la multiplicación a la izquierda |
+| test_evaluator::test_division_antes_que_resta | 8 / 2 - 3` | 1.0 | Normal | Igual, con división y resta |
+| test_evaluator::test_mismo_nivel_suma | 10 + 4 + 1 | 15.0 | Normal | Encadena dos operadores del mismo nivel |
+| test_evaluator::test_mismo_nivel_resta | 10 - 3 - 2 | 5.0 | Normal | Asociatividad a la izquierda: si agrupara a la derecha daría 9 |
+| test_evaluator::test_mismo_nivel_division | 8 / 4 / 2 | 1.0 | Normal | Asociatividad a la izquierda en la división |
+| test_evaluator::test_mismo_nivel_multiplicacion | 2 * 4 * 1 | 8.0 | Normal | Encadena dos multiplicaciones |
+| test_evaluator::test_mismo_nivel_2 | 8 / 2 * 2 | 8.0 | Normal | Mezcla / y *, que tienen la misma precedencia |
+| test_evaluator::test_mismo_nivel_3 | 10 - 3 + 2 | 9.0 | Normal | Mezcla - y +, que tienen la misma precedencia |
+| test_evaluator::test_division_entre_cero | 10 / 0 | ErrorDeEvaluacion | Frontera | Está bien escrita, pero no se puede calcular; es un extremo de lo que la división admite, y el error es de evaluación, no de sintaxis |
+| test_evaluator::test_mismo_nivel_resta | 0007-002 | 5.0 | Frontera | Números con ceros a la izquierda: el README dice que 007 es 7, así que la expresión vale 7 - 2 |
+| test_evaluator::test_numero_entre_parentesis | (7) | 7 | Frontera | Es lo más chico que cabe en un paréntesis: encierra solo un número, sin ningún operador, en el borde de la regla factor |
+| test_invalidos::test_entrada_vacia | "" | ErrorDeSintaxis | Entrada inválida | Para que sea válida necesita por lo menos un número (o un número entre parentesis) |
+| test_invalidos::test_con_letras | 2 + Laboon | ErrorDeSintaxis | Entrada invalida | Sólo se permiten números, paréntesis y símbolos de operadores (+ - * /)|
+| test_invalidos::test_sin_operador | 2 9 | ErrorDeSintaxis | Entrada inválida | No pueden estar dos números sin estar unidos por un operador |
+| test_invalidos::test_dos_operadores_seguidos | 2 +* 9 | ErrorDeSintaxis | Entrada inválida | Dos operadores no pueden estar directamente juntos |
+| test_invalidos::test_parentesis_extra | 9) | ErrorDeSintaxis | Entrada inválida | Se cierra un paréntesis que no se abrió |
+| test_invalidos::test_sin_segundo_termino | 9 + | ErrorDeSintaxis | Entrada inválida | Un operador debe de tener 2 números con los que trabajar, si solo hay uno no funciona |
+| test_invalidos::test_negativo | -9 | ErrorDeSintaxis | Entrada inválida | Los números deben ser enteros y sin signo |
+| test_invalidos::test_parentesis_sin_cerrar | (2 + 9 | ErrorDeSintaxis | Entrada inválida |  Se abre un paréntesis que no se cierra |
+|test_invalidos::test_simbolo_desconocido | 2 + 9 & | ErrorDeSintaxis | Entrada inválida | Sólo se permiten números, paréntesis y símbolos de operadores (+ - * /)|
 
 ---
 
 ## 4. Los defectos
 
 ### 4.1 ¿Qué defecto reveló primero una prueba nueva?
+La prueba que reveló el defecto es la de entrada vacía (con la entrada ""), ya que lanzaba el error de IndexError en lugar de ErrorDeSintaxis. El defecto se encuentra en parser.py, ahí el método _avanzar ejecutaba self.tokens[self.pos] sin antes revisar si ya no quedaban tokens.
+
 - Al faltar un simbolo antes de su termino en una prueba lanza erroneamente una posición de error mal
 - El float sigue apareciendo aunque el resultado se una entero (int)
 - División entre cero
@@ -104,8 +134,9 @@
 - Error por signos no considerados
 - Error de indicación del error por no haber numero despues de un signo
 
-
 ### 4.2 ¿Por qué el comportamiento observado era incorrecto?
+No respetaba la fila de *Entrada inválida* donde se dice que el programa debe rechazarse usando ErrorDeSintaxis y nunca con un error propio de Python, sin embargo el programa lo rechazaba con IndexError. También se menciona que los mensajes de error deben indicar la posicion dentro del texto, pero el error IndexError no menciona la posición del problema.
+
 Ya que los errores son faltas de implementación de consideración de entradas como:
 - Errores de falta de cerrar signos
 - Falta de implementación de respuesta respecto a decimales
@@ -118,6 +149,9 @@ Ya que los errores son faltas de implementación de consideración de entradas c
 
 | Defecto | Entrada que lo revela | Daba | Debería dar | Commit rojo | Commit verde |
 |---|---|---|---|---|---|
+| _avanzar ejecutaba self.tokens[self.pos] sin revisar si ya no quedaban tokens | "" | IndexError | ErrorDeSintaxis | 01ce476 | e143454 |
+| parsear no revisaba si sobraban tokens | 2 9 | no lanzaba error | ErrorDeSintaxis | 01ce476 |	68ad726 |
+| lexer ignoraba los caracteres desconocidos | 2 + 9 & | no lanzaba error | ErrorDeSintaxis | e4d2016 |	68ad726 | 
 | Parentesis sin cerrar |test_parentesis_sin_cerrar_reporta_posicion_final() |La expresion termino antes de tiempo (posicion 3)|posición 4 |Corrección de Rojo | Corrección de Verde|
 | Suma sin segundo numero |test_expresion_incompleta_reporta_posicion_final() |La expresion termino antes de tiempo (posicion 2)|posición 3 |Corrección de Rojo | Corrección de Verde|
 | Signo al inicio | test_signo_al_principio() |Token inesperado '-' (posicion 0)|Error de Sintaxis |Analisis (...) commit rojo | Commit verde|
@@ -128,10 +162,9 @@ Ya que los errores son faltas de implementación de consideración de entradas c
 
 
 ### 4.4 ¿Cómo saben que la corrección es general y no sólo hace pasar ese ejemplo?
----
 Hay unos especificos que no se pueden resolver por solo recibir enteros o no considerarse consisamente como erroes.
 Los generales que se resolvieron fue los indicadores de donde estaba especificamente el error modificando archivos como errores.py y evaluator.py, para que el mensaje fuera el inicado para el tipo de error, Y la división por cero que igual fuera considerada no solo el error de dividir por cero si no que indicar su posición
-
+---
 ## 5. Diseño
 
 ### 5.1 ¿Qué duplicación o señal de mal diseño encontraron?
