@@ -57,46 +57,48 @@ def test_mismo_nivel_3():
 #Agregado
 def test_division_entre_cero():
     with pytest.raises(ErrorDeEvaluacion):
-        interpretar("10 / 0")
+        interpretar("10 / 0") #Caso frontera
 
 #Agregado
 def test_parentesis_sin_cerrar_reporta_posicion_final():
     with pytest.raises(ErrorDeSintaxis) as info:
-        interpretar("(3+4")
+        interpretar("(3+4") #Caso frontera
     assert info.value.posicion == 4
 
 
 #Agregado
 def test_expresion_incompleta_reporta_posicion_final():
     with pytest.raises(ErrorDeSintaxis) as info:
-        interpretar("3 +")
+        interpretar("3 +") #Caso frontera
     assert info.value.posicion == 3
 
 #Agregado
 def test_signo_al_principio():
     with pytest.raises(ErrorDeSintaxis):
-        interpretar("-3 + 4")
+        interpretar("-3 + 4") #Caso invalido
 
 #Agregado
 def test_suma_con_decimales():
     with pytest.raises(ErrorDeSintaxis):
-        interpretar("3.2 + 4.0")
+        interpretar("3.2 + 4.0") #Caso invalido
 
 #Agregado
 def test_numeros_con_espacios():
     with pytest.raises(ErrorDeSintaxis):
-        interpretar("3 4")
+        interpretar("3 4") #Caso invalido
 
 #Agregado
-@pytest.mark.parametrize("entrada", ["3#4", "3$4", "3!4", "3&4", "3@4"])
+@pytest.mark.parametrize("entrada", ["3#4", "3$4", "3!4", "3&4", "3@4"]) #Caso invalido
 def test_simbolos_invalidos(entrada):
     with pytest.raises(ErrorDeSintaxis):
         interpretar(entrada)
 
 #Agregado
 def test_mismo_nivel_resta():
-    assert interpretar ("0007-002") == 5.0
+    assert interpretar ("0007-002") == 5.0 #Caso frontera
 
+def test_division_real_con_decimales():
+    assert interpretar ("10 / 4") == 2.5 #Caso frontera por reales y decimanles
 
 def test_precedencia_sin_parentesis():
     assert interpretar("3 + 4 * 2") == 11
