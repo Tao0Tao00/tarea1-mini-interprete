@@ -43,6 +43,7 @@ Omar Díaz Aguilar, Lizeth Suemy Esquivel Izquierdo, Gustavo Botello Salcido
 | Ayuda general con git e identificar commits rojos y verdes | Tabla 4.3 |
 | Correciones de redacción | ANALISIS.md |
 | Para dudas de comprensión existentes de python respecto a algunso metodos y apoyo para identificar como hacer una prueba en python | Unas fueron teoricas, una prueba que despues de comprender solo la modifique otras veces esta en evaluator.py |
+|Ayuda para comprension y ver que informacion podia dar |En el 5.3 ver que podia decir sobre la pregunta y comprender lo que decia si daba informacion extra |
 
 > Sean específicos. *"Para la tarea"* no dice nada.
 > *"Para generar las pruebas de `minimo_de_llaves`"* sí.
@@ -214,6 +215,28 @@ class ErrorDeEvaluacion(ErrorDelInterprete):
     """La expresion es valida pero no se puede evaluar."""
 
 ```
+
+```
+En la pregunta 5.3 que  es lo de factory method y adapter, estaba pensando que realmente no son necesarios o no vi como usarlos, ya que factory method funciona por medio de una super clase y subclases, pensaba que fuera para los operadores pero no lo vi muy practico, y de adapter pues tampoco ya que sigue una regla de comportamientos que tampoco logre ver, no se si este correcto mi pensamiento
+
+
+Tu razonamiento es correcto, y “ninguno” es una respuesta válida: el README lo dice expresamente, y lo que se evalúa es el criterio, no que metan un patrón.   
+
+Factory Method
+
+Tu idea de usarlo para los operadores es la única aplicación plausible, así que la consideraste bien. Se vería así: una clase por operador (Suma, Resta, ...) y una fábrica que decide cuál crear. Pero el sistema solo crea dos tipos de nodo (Numero y OperacionBinaria), y el parser siempre sabe cuál toca según la gramática. No hay un contexto que cambie qué se crea, que es el problema que resuelve el patrón. Habría más clases y más archivos, y el problema real (el conocimiento de cada operador está repartido en cuatro archivos) seguiría ahí.
+
+Adapter
+
+Sirve para conectar dos interfaces incompatibles, por ejemplo si tuvieran que usar un lexer externo que devuelve tuplas y el parser espera Token. Aquí todos los componentes son del propio proyecto y ya encajan entre sí, así que no hay nada que adaptar. Cuando dices que “sigue una regla de comportamientos”, seguramente te refieres a eso: no encontraste dos interfaces que no se entiendan.
+
+Qué cambiaría la respuesta (esto también es parte de lo que pide la sección 5.3)
+
+    Factory Method convendría si hubiera muchos operadores o familias de nodos y la creación tuviera que centralizarse.
+    Adapter convendría si apareciera una pieza externa con otra interfaz.
+
+Para la respuesta, justifiquen “ninguno” con lo anterior: qué problema concreto resolvería cada patrón, por qué aquí no aparece y qué tendría que cambiar para que convinieran.
+```
 ---
 
 ## 4. Cómo se incorporó o se descartó lo obtenido
@@ -242,6 +265,8 @@ Se les pidió intentarlo primero por su cuenta. Si lo hicieron así:
 | ¿Qué **no** encontró, que en este curso sí consideramos un problema? | Nada, al menos no con el contexto que le di |
 | ¿Qué encontró la herramienta que ustedes **no** habían notado? | En un test que hice mal me mando la corrección usando funciones que no había identificado, cuando no sabía una implementación de python en vez de buscar por google lo busque por la IA  |
 | ¿Qué **no** encontró, que en este curso sí consideramos un problema? | |
+| ¿Qué encontró la herramienta que ustedes **no** habían notado? | Dar lo de tupla como interfaz si se quiere usar adapter |
+| ¿Qué **no** encontró, que en este curso sí consideramos un problema? |Nada en especial contando tenia informacion de las clases pero no la respuesta completa a la pregunta|
 
 > La segunda es la que más nos interesa. Una herramienta suele no señalar la
 > duplicación de código, porque el programa funciona igual. Ustedes ya saben
@@ -286,3 +311,4 @@ Tratar de leer con calma las instrucciones de la actividad y antes de hacer nada
 |---|---|
 | Gustavo Botello Salcido | 323177308 |
 | Lizeth Suemy Esquivel Izquierdo |32333374-2 |
+| Omar Diaz Aguilar| 322012628|
